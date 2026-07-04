@@ -75,6 +75,8 @@ class DashboardController extends Controller
         return view('riwayat', compact('semuaRiwayat'));
     }
 
+    
+
     // ==========================================
     // FUNGSI UNTUK FITUR IZIN / SAKIT (GURU)
     // ==========================================

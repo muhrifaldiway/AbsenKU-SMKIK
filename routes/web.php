@@ -25,7 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/absen', [AttendanceController::class, 'store'])->name('absen.store');
     // Tambahkan ini di bawah route absen
     Route::get('/riwayat', [App\Http\Controllers\DashboardController::class, 'riwayat'])->name('riwayat.index');
-    
+    Route::get('/user/riwayat/cetak', [AttendanceController::class, 'exportRiwayat'])->name('user.riwayat.export');
     // Tambahkan di dalam route group yang menggunakan middleware auth
     Route::get('/admin/pengaturan', [App\Http\Controllers\AdminController::class, 'pengaturan'])->name('admin.pengaturan');
     
@@ -38,8 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route untuk Kelola Guru
     Route::get('/admin/guru', [App\Http\Controllers\AdminController::class, 'kelolaGuru'])->name('admin.guru');
 
-    // Route untuk download Excel
-    Route::get('/admin/export-excel', [App\Http\Controllers\AdminController::class, 'exportExcel'])->name('admin.export');
+    Route::get('/admin/cetak-laporan', [AdminController::class, 'cetakLaporanAdmin'])->name('admin.cetak.laporan');
 
         // Rute Pengajuan Izin & Sakit Guru
     Route::get('/izin/buat', [App\Http\Controllers\DashboardController::class, 'buatIzin'])->name('izin.create');

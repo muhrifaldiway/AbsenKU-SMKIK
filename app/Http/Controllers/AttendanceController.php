@@ -103,4 +103,24 @@ class AttendanceController extends Controller
             return redirect()->route('dashboard')->with('success', 'Berhasil Absen Pulang! Hati-hati di jalan pulang.');
         }
     }
+
+    public function exportRiwayat()
+    {
+        // 1. Dapatkan HANYA data 1 guru yang sedang login
+        $user = auth()->user(); 
+        
+        $bulanIni = date('m');
+        $tahunIni = date('Y');
+
+        // 2. Cari absen KHUSUS milik guru tersebut (berdasarkan ID-nya)
+        $riwayatGuruIni = Attendance::where('user_id', $user->id)
+            ->whereMonth('date', $bulanIni)
+            ->whereYear('date', $tahunIni)
+            ->orderBy('date', 'asc')
+            ->get();
+
+        $setting = Setting::first();
+
+        return view('riwayat-print', compact('user', 'riwayatGuruIni', 'setting'));
+    }
 }

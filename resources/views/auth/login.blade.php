@@ -10,6 +10,7 @@
                 </div>
                 <h2 class="text-3xl font-black text-slate-800 tracking-tight">A<span class="text-emerald-600">bsenKU</span></h2>
                 <p class="text-slate-500 text-xs mt-2 font-bold uppercase tracking-widest">SMK Informatika Komputer</p>
+                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Ampana Kota</p>
                 <div class="h-1.5 w-16 bg-amber-400 mx-auto mt-4 rounded-full"></div>
             </div>
 

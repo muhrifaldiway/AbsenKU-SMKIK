@@ -22,9 +22,11 @@
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total Tercatat</p>
                 <p class="text-2xl font-black text-slate-800">{{ $semuaRiwayat ? $semuaRiwayat->count() : 0 }} <span class="text-xs font-semibold text-slate-400">Hari</span></p>
             </div>
-            <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 shadow-inner">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            </div>
+            
+            <a href="{{ route('user.riwayat.export') }}" class="flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-tr from-amber-400 to-amber-500 text-amber-950 font-bold rounded-2xl shadow-[0_8px_20px_rgba(245,158,11,0.25)] hover:shadow-[0_10px_25px_rgba(245,158,11,0.35)] hover:from-amber-500 hover:to-amber-600 transition-all duration-300 active:scale-95">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span class="text-xs uppercase tracking-widest font-black">Cetak</span>
+            </a>
         </div>
 
         <div class="space-y-4">

@@ -54,43 +54,16 @@ class AdminController extends Controller
     }
 
     // Fungsi Export Native Laravel (Anti-Error)
-    public function exportExcel()
+    public function cetakLaporanAdmin()
     {
-        $fileName = 'Rekap_Absensi_Guru_' . date('Y-m-d') . '.csv';
-        $absensis = \App\Models\Attendance::with('user')->orderBy('date', 'desc')->get();
+        // Mengambil semua data absensi beserta relasi usernya, diurutkan dari yang terbaru
+        $semuaRiwayat = \App\Models\Attendance::with('user')->orderBy('date', 'desc')->get();
+        
+        // Mengambil pengaturan sekolah (nama sekolah, jam masuk, dll)
+        $setting = \App\Models\Setting::first();
 
-        $headers = array(
-            "Content-type"        => "text/csv",
-            "Content-Disposition" => "attachment; filename=$fileName",
-            "Pragma"              => "no-cache",
-            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            "Expires"             => "0"
-        );
-
-        $columns = array('No', 'Nama Guru', 'Tanggal', 'Jam Masuk', 'Status', 'Koordinat (Lat, Long)');
-
-        $callback = function() use($absensis, $columns) {
-            $file = fopen('php://output', 'w');
-            // Menulis Header (Judul Kolom)
-            fputcsv($file, $columns);
-
-            $no = 1;
-            // Menulis Isi Data dari Database
-            foreach ($absensis as $absen) {
-                $row['No']         = $no++;
-                $row['Nama Guru']  = $absen->user->name;
-                $row['Tanggal']    = \Carbon\Carbon::parse($absen->tanggal)->translatedFormat('d F Y');
-                $row['Jam Masuk']  = $absen->jam_masuk . ' WITA';
-                $row['Status']     = strtoupper($absen->status);
-                $row['Koordinat']  = $absen->lat_masuk . ', ' . $absen->long_masuk;
-
-                fputcsv($file, array($row['No'], $row['Nama Guru'], $row['Tanggal'], $row['Jam Masuk'], $row['Status'], $row['Koordinat']));
-            }
-
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
+        // Mengarahkan ke halaman cetak khusus admin
+        return view('admin.cetak-laporan', compact('semuaRiwayat', 'setting'));
     }
 
     public function daftarIzin()
